@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BUF_SIZE 256
+#define BUF_SIZE 300
 
 int main(int argc, char *argv[]){
 	
@@ -45,13 +45,23 @@ int main(int argc, char *argv[]){
 	}
 	
 	//Socket config 
-	sfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+	sfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	if (sfd < 0){
  		perror("socket error");
 		exit(EXIT_FAILURE);
 	}
-		
-	c = sendto(sfd, filename, sizeof(filename), 0, res->ai_addr, sizeof(res->ai_addr));
+	
+	char *octet = "octet";
+	buff_senddata[0] = "0";
+	buff_senddata[1] = "1";
+	for [int i = 2; i<strlen(filename); i++){
+		buff_senddata[i] = filename[i];
+	buff_senddata[0+1+strlen(filename)] = "0";
+	for (int j = 0; j<strlen(octet); j++){
+		buff_senddata[0+1+strlen(filename) + j+1] = octet[j];
+	buff_senddata[0+1+strlen(filename) + strlen(octet)+1] = "0";
+	 
+	c = sendto(sfd, buff_senddata, strlen(buff_senddata), 0, (struct sockaddr*) res->ai_addr, sizeof(res->ai_addr));
 	if (c == -1){
 		perror("sendto error");
 		exit(EXIT_FAILURE);
