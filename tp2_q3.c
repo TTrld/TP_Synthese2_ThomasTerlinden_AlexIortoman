@@ -50,7 +50,8 @@ int main(int argc, char *argv[]){
  		perror("socket error");
 		exit(EXIT_FAILURE);
 	}
-	
+
+	// buffer creation for sending message according to RFC 1350
 	char *octet = "octet";
 	buff_senddata[0] = "0";
 	buff_senddata[1] = "1";
